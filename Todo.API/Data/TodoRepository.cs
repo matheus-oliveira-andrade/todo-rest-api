@@ -36,6 +36,47 @@ namespace Todo.API.Data
             await _dataBase.PutItemAsync(req);
         }
 
+        public async Task Update(Domain.Todo todo)
+        {
+            var updates = new Dictionary<string, AttributeValueUpdate>();
+
+            updates["Title"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = todo.Title }
+            };
+
+            updates["Description"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = todo.Description }
+            };
+
+            updates["Status"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { N = ((int)todo.Status).ToString() }
+            };
+
+            updates["Tags"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { SS = todo.Tags }
+            };
+
+            var req = new UpdateItemRequest
+            {
+                TableName = _tableName,
+                Key = new Dictionary<string, AttributeValue>
+                {
+                    { "Id", new AttributeValue { S = todo.Id.ToString() } }
+                },
+                AttributeUpdates = updates,
+            };
+
+            await _dataBase.UpdateItemAsync(req);
+        }
+
         public async Task Delete(Guid id)
         {
             var req = new DeleteItemRequest
@@ -55,12 +96,12 @@ namespace Todo.API.Data
             var req = new ScanRequest
             {
                 TableName = _tableName,
-                
+
             };
 
             var resp = await _dataBase.ScanAsync(req);
 
-            if(!resp.Items.Any())
+            if (!resp.Items.Any())
             {
                 return null;
             }
@@ -70,7 +111,7 @@ namespace Todo.API.Data
                 string jsonTodo = Document.FromAttributeMap(item).ToJson();
 
                 return JsonConvert.DeserializeObject<Domain.Todo>(jsonTodo);
-            }).ToList();                               
+            }).ToList();
         }
 
         public async Task<Domain.Todo> GetById(Guid id)

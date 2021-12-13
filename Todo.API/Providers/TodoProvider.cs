@@ -19,6 +19,11 @@ namespace Todo.API.Providers
             await _todoRepository.Add(todo);
         }
 
+        public async Task Update(Domain.Todo todo)
+        {
+            await _todoRepository.Update(todo);
+        }
+
         public async Task<List<Domain.Todo>> GetAll()
         {
             return await _todoRepository.GetAll();

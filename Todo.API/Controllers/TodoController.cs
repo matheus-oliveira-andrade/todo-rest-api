@@ -52,5 +52,15 @@ namespace Todo.API.Controllers
 
             return Ok();
         }
+
+        [HttpPost("done")]
+        public async Task<ActionResult> MarkAsDone(Guid id)
+        {
+            bool success = await _mediator.Send(new MarkTodoAsDoneCommand(id));
+            if (!success)
+                return BadRequest();
+
+            return Ok();
+        }
     }
 }

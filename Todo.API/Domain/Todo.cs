@@ -20,5 +20,10 @@ namespace Todo.API.Domain
             CreatedAt = createdAt ?? DateTime.Now;
             ModifiedAt = modifiedAt ?? DateTime.Now;
         }
+
+        public void MarkAsDone()
+        {
+            Status = TodoStatus.Done;
+        }
     }
 }
