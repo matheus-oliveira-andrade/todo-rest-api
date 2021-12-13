@@ -29,9 +29,7 @@ namespace Todo.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo API CQRS", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(Startup));
-
-            services.AddScoped<IRequestHandler<AddTodoCommand, bool>, AddTodoCommandHandler>();
+            services.AddMediatR(typeof(Startup));            
 
             services.AddScoped<ITodoProvider, TodoProvider>();
             services.AddScoped<ITodoRepository, TodoRepository>();
@@ -45,7 +43,7 @@ namespace Todo.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo.API v1"));
             }
-
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -55,6 +55,7 @@ namespace Todo.API.Data
             var req = new ScanRequest
             {
                 TableName = _tableName,
+                
             };
 
             var resp = await _dataBase.ScanAsync(req);

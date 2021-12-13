@@ -10,16 +10,15 @@ namespace Todo.API.Domain
         public TodoStatus Status { get; private set; }
         public List<string> Tags { get; private set; }
 
-        public Todo(string title, string description, TodoStatus status, List<string> tags)
+        public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null, DateTime? createdAt = null, DateTime? modifiedAt = null)
         {
             Title = title;
             Description = description;
             Status = status;
             Tags = tags;
-
-            base.Id = Guid.NewGuid();
-            base.CreatedAt = DateTime.Now;
-            base.ModifiedAt = DateTime.Now;
+            Id = id ?? Guid.NewGuid();
+            CreatedAt = createdAt ?? DateTime.Now;
+            ModifiedAt = modifiedAt ?? DateTime.Now;
         }
     }
 }

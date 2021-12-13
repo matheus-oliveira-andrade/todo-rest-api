@@ -1,13 +1,16 @@
 ﻿using MediatR;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Todo.API.Data;
+using Todo.API.Mapping;
 using Todo.API.MediatR.Queries;
+using Todo.API.ViewModels;
 
 namespace Todo.API.MediatR.QueryHandlers
 {
-    public class GetAllTodosQueryHandler : IRequestHandler<GetAllTodosQuery, List<Domain.Todo>>
+    public class GetAllTodosQueryHandler : IRequestHandler<GetAllTodosQuery, List<TodoViewModel>>
     {
         private readonly ITodoRepository _todoRepository;
 
@@ -16,9 +19,11 @@ namespace Todo.API.MediatR.QueryHandlers
             _todoRepository = todoRepository;
         }
 
-        public async Task<List<Domain.Todo>> Handle(GetAllTodosQuery request, CancellationToken cancellationToken)
+        public async Task<List<TodoViewModel>> Handle(GetAllTodosQuery request, CancellationToken cancellationToken)
         {
-            return await _todoRepository.GetAll();
+            var todos = await _todoRepository.GetAll();
+
+            return todos?.Select(t => t.ToViewModel()).ToList();
         }
     }
 }
