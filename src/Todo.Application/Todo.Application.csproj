@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Todo.Data\Todo.Data.csproj" />
+      <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="9.5.4" />
+      <PackageReference Include="MediatR" Version="8.1.0" />
+    </ItemGroup>
+
+</Project>
