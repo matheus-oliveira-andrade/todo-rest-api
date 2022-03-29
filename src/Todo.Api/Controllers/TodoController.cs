@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Todo.API.ViewModels;
 using Todo.Application.Commands;
 using Todo.Application.Queries;
+using Todo.Application.ViewModels;
 
-namespace Todo.API.Controllers
+namespace Todo.Api.Controllers
 {
     [Route("api/todo")]
     public class TodoController : Controller

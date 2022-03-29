@@ -1,5 +1,5 @@
-﻿using Todo.API.ViewModels;
-using Todo.Application.Commands;
+﻿using Todo.Application.Commands;
+using Todo.Application.ViewModels;
 
 namespace Todo.Application.Mapping
 {

@@ -10,7 +10,7 @@ using Todo.Application.Queries;
 using Todo.Application.Services;
 using Todo.Data;
 
-namespace Todo.API
+namespace Todo.Api
 {
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace Todo.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo.Api v1"));
             }
            
             app.UseHttpsRedirection();
