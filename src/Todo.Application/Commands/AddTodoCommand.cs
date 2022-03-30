@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Todo.API.Domain;
 using Todo.Application.Validators;
+using Todo.Domain;
 
 namespace Todo.Application.Commands
 {

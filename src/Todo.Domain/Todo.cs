@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Todo.API.Domain
+namespace Todo.Domain
 {
     public class Todo : Entity
     {

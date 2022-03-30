@@ -14,22 +14,22 @@ namespace Todo.Application.Services
             _todoRepository = todoRepository;
         }
 
-        public async Task Add(API.Domain.Todo todo)
+        public async Task Add(Domain.Todo todo)
         {
             await _todoRepository.Add(todo);
         }
 
-        public async Task Update(API.Domain.Todo todo)
+        public async Task Update(Domain.Todo todo)
         {
             await _todoRepository.Update(todo);
         }
 
-        public async Task<List<API.Domain.Todo>> GetAll()
+        public async Task<List<Domain.Todo>> GetAll()
         {
             return await _todoRepository.GetAll();
         }
 
-        public async Task<API.Domain.Todo> GetById(Guid id)
+        public async Task<Domain.Todo> GetById(Guid id)
         {
             return await _todoRepository.GetById(id);
         }  

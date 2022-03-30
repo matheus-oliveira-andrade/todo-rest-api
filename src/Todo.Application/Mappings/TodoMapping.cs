@@ -1,20 +1,19 @@
 ﻿using Todo.Application.Commands;
 using Todo.Application.ViewModels;
 
-namespace Todo.Application.Mapping
+namespace Todo.Application.Mappings
 {
     public static class TodoMapping
     {
-
-        public static API.Domain.Todo ToDomain(this AddTodoCommand command)
+        public static Domain.Todo ToDomain(this AddTodoCommand command)
         {
-            return new API.Domain.Todo(command.Title,
+            return new Domain.Todo(command.Title,
                 command.Description,
                 command.Status,
                 command.Tags);
         }
 
-        public static TodoViewModel ToViewModel(this API.Domain.Todo todo)
+        public static TodoViewModel ToViewModel(this Domain.Todo todo)
         {
             return new TodoViewModel
             {

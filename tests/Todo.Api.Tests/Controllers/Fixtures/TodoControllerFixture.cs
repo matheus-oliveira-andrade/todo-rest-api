@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using Todo.API.Domain;
 using Todo.Application.ViewModels;
+using Todo.Domain;
 
 namespace Todo.Api.Tests.Controllers.Fixtures
 {

@@ -1,5 +1,5 @@
 ﻿
-namespace Todo.API.Domain
+namespace Todo.Domain
 {
     public enum TodoStatus
     {

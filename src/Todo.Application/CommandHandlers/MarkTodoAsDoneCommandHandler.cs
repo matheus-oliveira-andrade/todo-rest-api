@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Todo.API.Domain;
 using Todo.Application.Commands;
 using Todo.Application.Services;
+using Todo.Domain;
 
 namespace Todo.Application.CommandHandlers
 {

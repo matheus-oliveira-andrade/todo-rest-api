@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Todo.Application.Commands;
-using Todo.Application.Mapping;
+using Todo.Application.Mappings;
 using Todo.Application.Services;
 
 namespace Todo.Application.CommandHandlers

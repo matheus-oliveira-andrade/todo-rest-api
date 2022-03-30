@@ -22,7 +22,7 @@ namespace Todo.Data
             _dataBase = dynamoClient.DataBase;
         }
 
-        public async Task Add(API.Domain.Todo todo)
+        public async Task Add(Domain.Todo todo)
         {
             var document = Document.FromJson(JsonConvert.SerializeObject(todo));
 
@@ -35,7 +35,7 @@ namespace Todo.Data
             await _dataBase.PutItemAsync(req);
         }
 
-        public async Task Update(API.Domain.Todo todo)
+        public async Task Update(Domain.Todo todo)
         {
             var attributesUpdates = new Dictionary<string, AttributeValueUpdate>
             {
@@ -88,7 +88,7 @@ namespace Todo.Data
             await _dataBase.DeleteItemAsync(req);
         }
 
-        public async Task<List<API.Domain.Todo>> GetAll()
+        public async Task<List<Domain.Todo>> GetAll()
         {
             var req = new ScanRequest
             {
@@ -106,11 +106,11 @@ namespace Todo.Data
             {
                 string jsonTodo = Document.FromAttributeMap(item).ToJson();
 
-                return JsonConvert.DeserializeObject<API.Domain.Todo>(jsonTodo);
+                return JsonConvert.DeserializeObject<Domain.Todo>(jsonTodo);
             }).ToList();
         }
 
-        public async Task<API.Domain.Todo> GetById(Guid id)
+        public async Task<Domain.Todo> GetById(Guid id)
         {
             var resp = await _dataBase.GetItemAsync(new GetItemRequest
             {
@@ -128,7 +128,7 @@ namespace Todo.Data
 
             string jsonTodo = Document.FromAttributeMap(resp.Item).ToJson();
 
-            return JsonConvert.DeserializeObject<API.Domain.Todo>(jsonTodo);
+            return JsonConvert.DeserializeObject<Domain.Todo>(jsonTodo);
         }
     }
 }
