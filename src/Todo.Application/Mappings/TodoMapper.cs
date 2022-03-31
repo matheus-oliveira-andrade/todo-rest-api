@@ -3,10 +3,13 @@ using Todo.Application.ViewModels;
 
 namespace Todo.Application.Mappings
 {
-    public static class TodoMapping
+    public static class TodoMapper
     {
         public static Domain.Todo ToDomain(this AddTodoCommand command)
         {
+            if (command == null)
+                return null;
+
             return new Domain.Todo(command.Title,
                 command.Description,
                 command.Status,
@@ -15,6 +18,9 @@ namespace Todo.Application.Mappings
 
         public static TodoViewModel ToViewModel(this Domain.Todo todo)
         {
+            if (todo == null)
+                return null;
+
             return new TodoViewModel
             {
                 Id = todo.Id,

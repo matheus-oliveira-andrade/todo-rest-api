@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Todo.Application\Todo.Application.csproj" />
+      <ProjectReference Include="..\Todo.Api.Tests\Todo.Api.Tests.csproj" />
     </ItemGroup>
 
 </Project>

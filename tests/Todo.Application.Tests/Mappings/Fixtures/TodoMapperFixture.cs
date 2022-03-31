@@ -2,26 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using Todo.Application.ViewModels;
 using Todo.Domain;
 
-namespace Todo.Api.Tests.Controllers.Fixtures
+namespace Todo.Application.Tests.Mappings.Fixtures
 {
-    public class TodoControllerFixture
+    public class TodoMapperFixture
     {
-        public List<TodoViewModel> GetTodos()
+        public List<Domain.Todo> GenerateRandomTodos(int quantity)
         {
-            return GenerateRandomTodos(50);
-        }
-
-        public TodoViewModel GetTodo()
-        {
-            return GenerateRandomTodos(1).First();
-        }
-
-        public static List<TodoViewModel> GenerateRandomTodos(int quantity)
-        {
-            var fakerTodo = new Faker<TodoViewModel>("pt_BR")
+            var fakerTodo = new Faker<Domain.Todo>("pt_BR")
                 .RuleFor(x => x.Id, x => x.Random.Guid())
                 .RuleFor(x => x.Title, x => x.Lorem.Sentence())
                 .RuleFor(x => x.Description, x => x.Lorem.Paragraphs(2))

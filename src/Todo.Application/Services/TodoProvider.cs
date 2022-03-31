@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Todo.Data;
 
 namespace Todo.Application.Services
 {
+    [ExcludeFromCodeCoverage]
     public class TodoProvider : ITodoProvider
     {
         private readonly ITodoRepository _todoRepository;
@@ -32,10 +34,10 @@ namespace Todo.Application.Services
         public async Task<Domain.Todo> GetById(Guid id)
         {
             return await _todoRepository.GetById(id);
-        }  
-        
+        }
+
         public async Task Delete(Guid id)
-        {            
+        {
             if (await Exist(id))
                 throw new Exception("Todo not found");
 
