@@ -1,6 +1,6 @@
 ﻿using System;
 using MediatR;
-using Todo.API.ViewModels;
+using Todo.Application.ViewModels;
 
 namespace Todo.Application.Queries
 {

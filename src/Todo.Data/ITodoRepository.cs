@@ -6,11 +6,11 @@ namespace Todo.Data
 {
     public interface ITodoRepository
     {
-        public Task Add(API.Domain.Todo todo);
+        public Task Add(Domain.Todo todo);
         public Task Delete(Guid id);
-        Task Update(API.Domain.Todo todo);
+        Task Update(Domain.Todo todo);
 
-        public Task<API.Domain.Todo> GetById(Guid id);
-        public Task<List<API.Domain.Todo>> GetAll();
+        public Task<Domain.Todo> GetById(Guid id);
+        public Task<List<Domain.Todo>> GetAll();
     }
 }

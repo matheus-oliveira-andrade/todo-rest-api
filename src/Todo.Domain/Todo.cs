@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Todo.API.Domain
+namespace Todo.Domain
 {
     public class Todo : Entity
     {
@@ -10,6 +10,10 @@ namespace Todo.API.Domain
         public TodoStatus Status { get; private set; }
         public List<string> Tags { get; private set; }
 
+        public Todo()
+        {
+        }
+        
         public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null, DateTime? createdAt = null, DateTime? modifiedAt = null)
         {
             Title = title;

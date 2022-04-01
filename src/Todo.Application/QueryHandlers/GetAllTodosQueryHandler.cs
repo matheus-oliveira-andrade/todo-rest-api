@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Todo.API.ViewModels;
-using Todo.Application.Mapping;
+using Todo.Application.Mappings;
 using Todo.Application.Queries;
+using Todo.Application.ViewModels;
 using Todo.Data;
 
 namespace Todo.Application.QueryHandlers

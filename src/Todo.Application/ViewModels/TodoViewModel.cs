@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Todo.API.Domain;
+using Todo.Domain;
 
-namespace Todo.API.ViewModels
+namespace Todo.Application.ViewModels
 {
     public class TodoViewModel
     {
