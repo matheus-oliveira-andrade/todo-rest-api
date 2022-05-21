@@ -44,7 +44,7 @@ namespace Todo.Application.Tests.Mappings
             var todos = new TodoMapperFixture().GenerateRandomTodos(123);
 
             // Act
-            var result = todos.Select(x => x.ToViewModel());
+            var result = todos.Select(x => x.FromPersistence().ToViewModel());
 
             // Assert
             result.Select(x => x.Should().BeNull());

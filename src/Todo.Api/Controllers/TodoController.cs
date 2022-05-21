@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Todo.Application.Commands;
 using Todo.Application.Queries;
@@ -41,9 +42,10 @@ namespace Todo.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Add(string title, string description, List<string> tags)
+        public async Task<ActionResult> Add([FromBody] AddTodoViewModel request)
         {
-            bool success = await _mediator.Send(new AddTodoCommand(title, description, tags));
+            bool success =
+                await _mediator.Send(new AddTodoCommand(request.Title, request.Description, request.Tags.ToList()));
             if (!success)
                 return BadRequest();
 

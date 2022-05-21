@@ -32,5 +32,15 @@ namespace Todo.Api.Tests.Controllers.Fixtures
 
             return fakerTodo.Generate(quantity);
         }
+
+        public AddTodoViewModel GenerateRandomTodo()
+        {
+            var fakerTodo = new Faker<AddTodoViewModel>("pt_BR")
+                .RuleFor(x => x.Title, x => x.Lorem.Sentence())
+                .RuleFor(x => x.Description, x => x.Lorem.Paragraphs(2))
+                .RuleFor(x => x.Tags, x => x.Lorem.Words(6).ToList());
+
+            return fakerTodo.Generate(1).First();
+        }
     }
 }

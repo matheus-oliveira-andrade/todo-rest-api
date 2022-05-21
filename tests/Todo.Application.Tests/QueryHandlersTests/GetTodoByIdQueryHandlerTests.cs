@@ -45,7 +45,7 @@ namespace Todo.Application.Tests.QueryHandlersTests
         public async Task Handle_Null_CantFindData()
         {
             // Arrange
-            _todoRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).ReturnsAsync(default(Domain.Todo));
+            _todoRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).ReturnsAsync(default(Todo.Data.Models.Todo));
             var query = new GetTodoByIdQuery(Guid.NewGuid());
 
             // Act

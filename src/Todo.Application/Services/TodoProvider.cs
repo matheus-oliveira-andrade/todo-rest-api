@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Todo.Application.Mappings;
 using Todo.Data;
 
 namespace Todo.Application.Services
@@ -18,27 +19,27 @@ namespace Todo.Application.Services
 
         public async Task Add(Domain.Todo todo)
         {
-            await _todoRepository.Add(todo);
+            await _todoRepository.Add(todo.ToPersistence());
         }
 
         public async Task Update(Domain.Todo todo)
         {
-            await _todoRepository.Update(todo);
+            await _todoRepository.Update(todo.ToPersistence());
         }
 
         public async Task<List<Domain.Todo>> GetAll()
         {
-            return await _todoRepository.GetAll();
+            return (await _todoRepository.GetAll()).FromPersistence();
         }
 
         public async Task<Domain.Todo> GetById(Guid id)
         {
-            return await _todoRepository.GetById(id);
+            return (await _todoRepository.GetById(id)).FromPersistence();
         }
 
         public async Task Delete(Guid id)
         {
-            if (await Exist(id))
+            if (!await Exist(id))
                 throw new Exception("Todo not found");
 
             await _todoRepository.Delete(id);

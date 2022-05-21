@@ -23,7 +23,7 @@ namespace Todo.Application.QueryHandlers
         {
             var todos = await _todoRepository.GetAll();
 
-            return todos?.Select(t => t.ToViewModel()).ToList();
+            return todos?.Select(t => t.FromPersistence().ToViewModel()).ToList();
         }
     }
 }

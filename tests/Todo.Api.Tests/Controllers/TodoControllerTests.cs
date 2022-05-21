@@ -98,8 +98,10 @@ namespace Todo.Api.Tests.Controllers
             _mediatorMock.Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
 
+            var request = _fixture.GenerateRandomTodo();
+
             // Act
-            var response = await _controller.Add("Xxxx xx xxxx", "X xxxx xxxxx x xxx", new List<string>());
+            var response = await _controller.Add(request);
 
             // Assert
             response.Should().BeOfType<OkResult>();
@@ -112,8 +114,10 @@ namespace Todo.Api.Tests.Controllers
             _mediatorMock.Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);
 
+            var request = _fixture.GenerateRandomTodo();
+
             // Act
-            var response = await _controller.Add("", "Xxxx xx xxxxx", new List<string>());
+            var response = await _controller.Add(request);
 
             // Assert
             response.Should().BeOfType<BadRequestResult>();

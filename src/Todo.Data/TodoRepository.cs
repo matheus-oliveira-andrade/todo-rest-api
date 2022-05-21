@@ -22,7 +22,7 @@ namespace Todo.Data
             _dataBase = dynamoClient.DataBase;
         }
 
-        public async Task Add(Domain.Todo todo)
+        public async Task Add(Models.Todo todo)
         {
             var document = Document.FromJson(JsonConvert.SerializeObject(todo));
 
@@ -35,26 +35,26 @@ namespace Todo.Data
             await _dataBase.PutItemAsync(req);
         }
 
-        public async Task Update(Domain.Todo todo)
+        public async Task Update(Models.Todo todo)
         {
             var attributesUpdates = new Dictionary<string, AttributeValueUpdate>
             {
-                ["Title"] = new AttributeValueUpdate
+                [nameof(todo.Title)] = new AttributeValueUpdate
                 {
                     Action = AttributeAction.PUT,
                     Value = new AttributeValue {S = todo.Title}
                 },
-                ["Description"] = new AttributeValueUpdate
+                [nameof(todo.Description)] = new AttributeValueUpdate
                 {
                     Action = AttributeAction.PUT,
                     Value = new AttributeValue {S = todo.Description}
                 },
-                ["Status"] = new AttributeValueUpdate
+                [nameof(todo.Status)] = new AttributeValueUpdate
                 {
                     Action = AttributeAction.PUT,
-                    Value = new AttributeValue {N = ((int) todo.Status).ToString()}
+                    Value = new AttributeValue {N = todo.Status.ToString()}
                 },
-                ["Tags"] = new AttributeValueUpdate
+                [nameof(todo.Tags)] = new AttributeValueUpdate
                 {
                     Action = AttributeAction.PUT,
                     Value = new AttributeValue {SS = todo.Tags}
@@ -88,7 +88,7 @@ namespace Todo.Data
             await _dataBase.DeleteItemAsync(req);
         }
 
-        public async Task<List<Domain.Todo>> GetAll()
+        public async Task<List<Models.Todo>> GetAll()
         {
             var req = new ScanRequest
             {
@@ -106,11 +106,11 @@ namespace Todo.Data
             {
                 string jsonTodo = Document.FromAttributeMap(item).ToJson();
 
-                return JsonConvert.DeserializeObject<Domain.Todo>(jsonTodo);
+                return JsonConvert.DeserializeObject<Models.Todo>(jsonTodo);
             }).ToList();
         }
 
-        public async Task<Domain.Todo> GetById(Guid id)
+        public async Task<Models.Todo> GetById(Guid id)
         {
             var resp = await _dataBase.GetItemAsync(new GetItemRequest
             {
@@ -128,7 +128,7 @@ namespace Todo.Data
 
             string jsonTodo = Document.FromAttributeMap(resp.Item).ToJson();
 
-            return JsonConvert.DeserializeObject<Domain.Todo>(jsonTodo);
+            return JsonConvert.DeserializeObject<Models.Todo>(jsonTodo);
         }
     }
 }

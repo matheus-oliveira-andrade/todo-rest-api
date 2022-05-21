@@ -21,7 +21,7 @@ namespace Todo.Application.QueryHandlers
         {
             var todo = await _todoRepository.GetById(query.Id);
 
-            return todo?.ToViewModel();
+            return todo?.FromPersistence().ToViewModel();
         }
     }
 }
