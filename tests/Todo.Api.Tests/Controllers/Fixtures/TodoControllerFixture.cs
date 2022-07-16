@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using Todo.Application.ViewModels;
-using Todo.Domain;
+using Todo.Domain.Enums;
 
 namespace Todo.Api.Tests.Controllers.Fixtures
 {

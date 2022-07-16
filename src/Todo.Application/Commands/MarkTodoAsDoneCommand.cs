@@ -1,5 +1,4 @@
 ﻿using System;
-using MediatR;
 using Todo.Application.Validators;
 
 namespace Todo.Application.Commands

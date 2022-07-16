@@ -36,7 +36,7 @@ namespace Todo.Api.Controllers
             {
                 return NotFound();
             }
-
+            
             return Ok(todo);
         }
 

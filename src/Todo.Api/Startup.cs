@@ -1,14 +1,12 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Todo.Application.Services;
-using Todo.Data;
+using Todo.Api.Configs;
+using Todo.Application;
+using Todo.Infrastructure;
 
 namespace Todo.Api
 {
@@ -25,15 +23,10 @@ namespace Todo.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo API CQRS", Version = "v1" });
-            });
-            
-            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());            
 
-            services.AddScoped<ITodoProvider, TodoProvider>();
-            services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddSwaggerDocs();
+            services.AddInfrastructure();
+            services.AddApplication();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,9 +34,9 @@ namespace Todo.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo.Api v1"));
             }
+
+            app.UseSwaggerDocs();
            
             app.UseHttpsRedirection();
 

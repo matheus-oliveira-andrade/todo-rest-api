@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Todo.Domain
+namespace Todo.Domain.Entities
 {
     public abstract class Entity
     {

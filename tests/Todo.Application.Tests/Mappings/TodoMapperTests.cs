@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Todo.Api.Tests.Controllers.Fixtures;
 using Todo.Application.Commands;
 using Todo.Application.Mappings;
 using Todo.Application.Tests.Mappings.Fixtures;
@@ -54,7 +53,7 @@ namespace Todo.Application.Tests.Mappings
         public void ToViewModel_NotMap_ShouldReturnNull()
         {
             // Arrange & Act
-            var result = ((Domain.Todo) null).ToViewModel();
+            var result = ((Domain.Entities.Todo) null).ToViewModel();
 
             // Assert
             result.Should().BeNull();

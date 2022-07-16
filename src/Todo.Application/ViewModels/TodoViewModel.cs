@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Todo.Domain;
+using Todo.Domain.Enums;
 
 namespace Todo.Application.ViewModels
 {

@@ -5,18 +5,18 @@ namespace Todo.Application.Mappings
 {
     public static class TodoMapper
     {
-        public static Domain.Todo ToDomain(this AddTodoCommand command)
+        public static Domain.Entities.Todo ToDomain(this AddTodoCommand command)
         {
             if (command == null)
                 return null;
 
-            return new Domain.Todo(command.Title,
+            return new Domain.Entities.Todo(command.Title,
                 command.Description,
                 command.Status,
                 command.Tags);
         }
 
-        public static TodoViewModel ToViewModel(this Domain.Todo todo)
+        public static TodoViewModel ToViewModel(this Domain.Entities.Todo todo)
         {
             if (todo == null)
                 return null;

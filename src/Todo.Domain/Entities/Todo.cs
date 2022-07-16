@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Todo.Domain.Enums;
 
-namespace Todo.Domain
+namespace Todo.Domain.Entities
 {
     public class Todo : Entity
     {
@@ -13,8 +14,9 @@ namespace Todo.Domain
         public Todo()
         {
         }
-        
-        public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null, DateTime? createdAt = null, DateTime? modifiedAt = null)
+
+        public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null,
+            DateTime? createdAt = null, DateTime? modifiedAt = null)
         {
             Title = title;
             Description = description;
@@ -24,7 +26,7 @@ namespace Todo.Domain
             CreatedAt = createdAt ?? DateTime.Now;
             ModifiedAt = modifiedAt ?? DateTime.Now;
         }
-        
+
         public void MarkAsDone()
         {
             Status = TodoStatus.Done;

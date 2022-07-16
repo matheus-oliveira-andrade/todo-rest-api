@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
@@ -28,7 +29,7 @@ namespace Todo.Application.Tests.CommandHandlers
         }
 
         [Fact]
-        public async void Handle_Processed_ReturnTrue()
+        public async Task Handle_Processed_ReturnTrue()
         {
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
@@ -44,7 +45,7 @@ namespace Todo.Application.Tests.CommandHandlers
         }
 
         [Fact]
-        public async void Handle_AlwaysDone_ReturnTrue()
+        public async Task Handle_AlwaysDone_ReturnTrue()
         {
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
@@ -60,13 +61,13 @@ namespace Todo.Application.Tests.CommandHandlers
         }
 
         [Fact]
-        public async void Handle_NotFound_ReturnTrue()
+        public async Task Handle_NotFound_ReturnTrue()
         {
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
 
             _todoProviderMock.Setup(x => x.GetById(It.IsAny<Guid>()))
-                .ReturnsAsync(default(Domain.Todo));
+                .ReturnsAsync(default(Domain.Entities.Todo));
 
             // Act
             var result = await _commandHandler.Handle(command, CancellationToken.None);
