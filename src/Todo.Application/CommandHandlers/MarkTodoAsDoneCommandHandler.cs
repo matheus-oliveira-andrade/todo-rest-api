@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Todo.Application.Commands;
 using Todo.Application.Services;
-using Todo.Domain;
+using Todo.Domain.Enums;
 
 namespace Todo.Application.CommandHandlers
 {

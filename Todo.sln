@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Domain", "src\Todo.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Application", "src\Todo.Application\Todo.Application.csproj", "{EFFA2B31-689A-4449-B476-549B496BD6FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Data", "src\Todo.Data\Todo.Data.csproj", "{6817E8B0-D165-4D2A-A08F-32D4CAE1E722}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Infrastructure", "src\Todo.Infrastructure\Todo.Infrastructure.csproj", "{6817E8B0-D165-4D2A-A08F-32D4CAE1E722}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{098204E4-6A72-4744-ADB6-1B23ED1FCFBA}"
 EndProject
@@ -18,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api.Tests", "tests\Todo.Api.Tests\Todo.Api.Tests.csproj", "{873F4FA5-CF73-473F-877B-18F2A0576681}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Application.Tests", "tests\Todo.Application.Tests\Todo.Application.Tests.csproj", "{72BF5464-8322-47B9-9E7B-ECB566504063}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Lambda", "src\Todo.Lambda\Todo.Lambda.csproj", "{021AEAD1-0EDB-463E-BC55-B16059935A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Release|Any CPU.Build.0 = Release|Any CPU
-		{021AEAD1-0EDB-463E-BC55-B16059935A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{021AEAD1-0EDB-463E-BC55-B16059935A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{021AEAD1-0EDB-463E-BC55-B16059935A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{021AEAD1-0EDB-463E-BC55-B16059935A23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +63,5 @@ Global
 		{C9D21832-91AE-45E8-B057-288319605357} = {098204E4-6A72-4744-ADB6-1B23ED1FCFBA}
 		{873F4FA5-CF73-473F-877B-18F2A0576681} = {D16B0751-BE34-4D86-BAB6-AD94084AE5FC}
 		{72BF5464-8322-47B9-9E7B-ECB566504063} = {D16B0751-BE34-4D86-BAB6-AD94084AE5FC}
-		{021AEAD1-0EDB-463E-BC55-B16059935A23} = {098204E4-6A72-4744-ADB6-1B23ED1FCFBA}
 	EndGlobalSection
 EndGlobal

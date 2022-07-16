@@ -6,10 +6,10 @@ namespace Todo.Application.Services
 {
     public interface ITodoProvider
     {
-        Task Add(Domain.Todo todo);
+        Task Add(Domain.Entities.Todo todo);
         Task Delete(Guid id);
-        Task<List<Domain.Todo>> GetAll();
-        Task<Domain.Todo> GetById(Guid id);
-        Task Update(Domain.Todo todo);
+        Task<List<Domain.Entities.Todo>> GetAll();
+        Task<Domain.Entities.Todo> GetById(Guid id);
+        Task Update(Domain.Entities.Todo todo);
     }
 }

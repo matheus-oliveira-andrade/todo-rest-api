@@ -1,21 +1,21 @@
 using System.Collections.Generic;
-using Todo.Domain;
+using Todo.Domain.Enums;
 
 namespace Todo.Application.Tests.CommandHandlers.Fixtures
 {
     public class MarkTodoAsDoneCommandHandlerFixture
     {
-        public Domain.Todo GetPendingTodo()
+        public Domain.Entities.Todo GetPendingTodo()
         {
-            return new Domain.Todo("Title",
+            return new Domain.Entities.Todo("Title",
                 "Description",
                 TodoStatus.Pending,
                 new List<string>());
         }
         
-        public Domain.Todo GetDoneTodo()
+        public Domain.Entities.Todo GetDoneTodo()
         {
-            return new Domain.Todo("Title",
+            return new Domain.Entities.Todo("Title",
                 "Description",
                 TodoStatus.Done,
                 new List<string>());

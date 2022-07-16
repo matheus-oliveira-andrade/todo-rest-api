@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Todo.Data;
+using Todo.Infrastructure.Interfaces;
 
 namespace Todo.Application.Services
 {
@@ -16,22 +16,22 @@ namespace Todo.Application.Services
             _todoRepository = todoRepository;
         }
 
-        public async Task Add(Domain.Todo todo)
+        public async Task Add(Domain.Entities.Todo todo)
         {
             await _todoRepository.Add(todo);
         }
 
-        public async Task Update(Domain.Todo todo)
+        public async Task Update(Domain.Entities.Todo todo)
         {
             await _todoRepository.Update(todo);
         }
 
-        public async Task<List<Domain.Todo>> GetAll()
+        public async Task<List<Domain.Entities.Todo>> GetAll()
         {
             return await _todoRepository.GetAll();
         }
 
-        public async Task<Domain.Todo> GetById(Guid id)
+        public async Task<Domain.Entities.Todo> GetById(Guid id)
         {
             return await _todoRepository.GetById(id);
         }

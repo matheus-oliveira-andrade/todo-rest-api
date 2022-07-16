@@ -6,7 +6,7 @@ using MediatR;
 using Todo.Application.Mappings;
 using Todo.Application.Queries;
 using Todo.Application.ViewModels;
-using Todo.Data;
+using Todo.Infrastructure.Interfaces;
 
 namespace Todo.Application.QueryHandlers
 {

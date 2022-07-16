@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
@@ -24,10 +24,10 @@ namespace Todo.Application.Tests.CommandHandlers
         }
 
         [Fact]
-        public async void Handle_AddedWithSuccess_ReturnTrue()
+        public async Task Handle_AddedWithSuccess_ReturnTrue()
         {
             // Arrange
-            _todoProviderMock.Setup(x => x.Add(It.IsAny<Domain.Todo>()));
+            _todoProviderMock.Setup(x => x.Add(It.IsAny<Domain.Entities.Todo>()));
             var command = new AddTodoCommand("Xxxx", "Xxxxx xx xxxx", new List<string>());
 
             // Act
@@ -38,7 +38,7 @@ namespace Todo.Application.Tests.CommandHandlers
         }
 
         [Fact]
-        public async void Handle_InvalidCommand_ReturnFalse()
+        public async Task Handle_InvalidCommand_ReturnFalse()
         {
             // Arrange
             var command = new AddTodoCommand("", "Xxxxx xx xxxx", new List<string>());
