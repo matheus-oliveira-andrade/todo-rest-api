@@ -23,7 +23,7 @@ namespace Todo.Infrastructure.DynamoDb
             _dataBase = dynamoClient.DataBase;
         }
 
-        public async Task Add(Domain.Entities.Todo todo)
+        public async Task AddAsync(Domain.Entities.Todo todo)
         {
             var document = Document.FromJson(JsonConvert.SerializeObject(todo));
 
@@ -36,29 +36,29 @@ namespace Todo.Infrastructure.DynamoDb
             await _dataBase.PutItemAsync(req);
         }
 
-        public async Task Update(Domain.Entities.Todo todo)
+        public async Task UpdateAsync(Domain.Entities.Todo todo)
         {
             var attributesUpdates = new Dictionary<string, AttributeValueUpdate>
             {
-                ["Title"] = new AttributeValueUpdate
+                ["Title"] = new()
                 {
                     Action = AttributeAction.PUT,
-                    Value = new AttributeValue {S = todo.Title}
+                    Value = new AttributeValue { S = todo.Title }
                 },
-                ["Description"] = new AttributeValueUpdate
+                ["Description"] = new()
                 {
                     Action = AttributeAction.PUT,
-                    Value = new AttributeValue {S = todo.Description}
+                    Value = new AttributeValue { S = todo.Description }
                 },
-                ["Status"] = new AttributeValueUpdate
+                ["Status"] = new()
                 {
                     Action = AttributeAction.PUT,
-                    Value = new AttributeValue {N = ((int) todo.Status).ToString()}
+                    Value = new AttributeValue { N = ((int)todo.Status).ToString() }
                 },
-                ["Tags"] = new AttributeValueUpdate
+                ["Tags"] = new()
                 {
                     Action = AttributeAction.PUT,
-                    Value = new AttributeValue {SS = todo.Tags}
+                    Value = new AttributeValue { SS = todo.Tags }
                 }
             };
 
@@ -67,7 +67,7 @@ namespace Todo.Infrastructure.DynamoDb
                 TableName = TableName,
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    {"Id", new AttributeValue {S = todo.Id.ToString()}}
+                    { "Id", new AttributeValue { S = todo.Id.ToString() } }
                 },
                 AttributeUpdates = attributesUpdates,
             };
@@ -75,21 +75,7 @@ namespace Todo.Infrastructure.DynamoDb
             await _dataBase.UpdateItemAsync(req);
         }
 
-        public async Task Delete(Guid id)
-        {
-            var req = new DeleteItemRequest
-            {
-                TableName = TableName,
-                Key = new Dictionary<string, AttributeValue>
-                {
-                    {"Id", new AttributeValue {S = id.ToString()}}
-                }
-            };
-
-            await _dataBase.DeleteItemAsync(req);
-        }
-
-        public async Task<List<Domain.Entities.Todo>> GetAll()
+        public async Task<List<Domain.Entities.Todo>> GetAllAsync()
         {
             var req = new ScanRequest
             {
@@ -99,35 +85,30 @@ namespace Todo.Infrastructure.DynamoDb
             var resp = await _dataBase.ScanAsync(req);
 
             if (!resp.Items.Any())
-            {
                 return null;
-            }
 
-            return resp.Items.Select(item =>
-            {
-                string jsonTodo = Document.FromAttributeMap(item).ToJson();
-
-                return JsonConvert.DeserializeObject<Domain.Entities.Todo>(jsonTodo);
-            }).ToList();
+            return resp.Items
+                .Select(Document.FromAttributeMap)
+                .Select(x => x.ToJson())
+                .Select(JsonConvert.DeserializeObject<Domain.Entities.Todo>)
+                .ToList();
         }
 
-        public async Task<Domain.Entities.Todo> GetById(Guid id)
+        public async Task<Domain.Entities.Todo> GetByIdAsync(Guid id)
         {
             var resp = await _dataBase.GetItemAsync(new GetItemRequest
             {
                 TableName = TableName,
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    {"Id", new AttributeValue {S = id.ToString()}}
+                    { "Id", new AttributeValue { S = id.ToString() } }
                 },
             });
 
             if (!resp.IsItemSet)
-            {
                 return null;
-            }
 
-            string jsonTodo = Document.FromAttributeMap(resp.Item).ToJson();
+            var jsonTodo = Document.FromAttributeMap(resp.Item).ToJson();
 
             return JsonConvert.DeserializeObject<Domain.Entities.Todo>(jsonTodo);
         }

@@ -1,7 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
-using Todo.Application.Mappings;
+using Microsoft.Extensions.Logging;
 using Todo.Application.Queries;
 using Todo.Application.ViewModels;
 using Todo.Infrastructure.Interfaces;
@@ -10,18 +11,27 @@ namespace Todo.Application.QueryHandlers
 {
     public class GetTodoByIdQueryHandler : IRequestHandler<GetTodoByIdQuery, TodoViewModel>
     {
-        private readonly ITodoRepository _todoRepository;        
+        private readonly ILogger<GetTodoByIdQueryHandler> _logger;
+        private readonly ITodoRepository _todoRepository;
+        private readonly IMapper _mapper;
 
-        public GetTodoByIdQueryHandler(ITodoRepository todoRepository)
+        public GetTodoByIdQueryHandler(
+            ILogger<GetTodoByIdQueryHandler> logger,
+            ITodoRepository todoRepository,
+            IMapper mapper)
         {
-            _todoRepository = todoRepository;            
+            _logger = logger;
+            _todoRepository = todoRepository;
+            _mapper = mapper;
         }
 
         public async Task<TodoViewModel> Handle(GetTodoByIdQuery query, CancellationToken cancellationToken)
         {
-            var todo = await _todoRepository.GetById(query.Id);
+            _logger.LogInformation("Getting todo with id {Id}", query.Id);
+            
+            var todo = await _todoRepository.GetByIdAsync(query.Id);
 
-            return todo?.ToViewModel();
+            return _mapper.Map<TodoViewModel>(todo);
         }
     }
 }

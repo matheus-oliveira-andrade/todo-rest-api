@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Moq.AutoMock;
 using Todo.Api.Controllers;
-using Todo.Api.Tests.Controllers.Fixtures;
 using Todo.Application.Commands;
 using Todo.Application.Queries;
 using Todo.Application.ViewModels;
@@ -15,16 +15,13 @@ using Xunit;
 
 namespace Todo.Api.Tests.Controllers
 {
-    public class TodoControllerTests : IClassFixture<TodoControllerFixture>
+    public class TodoControllerTests
     {
-        private readonly TodoControllerFixture _fixture;
         private readonly TodoController _controller;
         private readonly Mock<IMediator> _mediatorMock;
 
-        public TodoControllerTests(TodoControllerFixture fixture)
+        public TodoControllerTests()
         {
-            _fixture = fixture;
-
             var autoMocker = new AutoMocker();
 
             _mediatorMock = autoMocker.GetMock<IMediator>();
@@ -32,11 +29,12 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void Get_HaveTodos_ReturnsOkResultWithTodos()
+        public async Task Get_HaveTodos_ReturnsOkResultWithTodos()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetAllTodosQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(_fixture.GetTodos());
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<GetAllTodosQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<TodoViewModel> { new() });
 
             // Act
             var response = await _controller.Get();
@@ -47,10 +45,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void Get_DontHaveTodos_ReturnsOKResultWithEmptyList()
+        public async Task Get_DontHaveTodos_ReturnsOKResultWithEmptyList()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetAllTodosQuery>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<GetAllTodosQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<TodoViewModel>());
 
             // Act
@@ -62,11 +61,12 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void GetById_IdExist_ReturnsOKResultWithTodo()
+        public async Task GetById_IdExist_ReturnsOKResultWithTodo()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetTodoByIdQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(_fixture.GetTodo());
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<GetTodoByIdQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new TodoViewModel());
 
             // Act
             var response = await _controller.GetById(Guid.NewGuid());
@@ -77,10 +77,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void GetById_IdDoesNotExist_ReturnsNotFound()
+        public async Task GetById_IdDoesNotExist_ReturnsNotFound()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetTodoByIdQuery>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<GetTodoByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(default(TodoViewModel));
 
             // Act
@@ -92,10 +93,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void Add_ValidTodo_ReturnsOk()
+        public async Task Add_ValidTodo_ReturnsOk()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
 
             // Act
@@ -106,10 +108,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void Add_NotSuccess_ReturnsBadRequest()
+        public async Task Add_NotSuccess_ReturnsBadRequest()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<AddTodoCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);
 
             // Act
@@ -120,10 +123,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void MarkAsDone_Success_ReturnsOk()
+        public async Task MarkAsDone_Success_ReturnsOk()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<MarkTodoAsDoneCommand>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<MarkTodoAsDoneCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
 
             // Act
@@ -134,10 +138,11 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async void MarkAsDone_NotSuccess_ReturnsBadRequest()
+        public async Task MarkAsDone_NotSuccess_ReturnsBadRequest()
         {
             // Arrange
-            _mediatorMock.Setup(x => x.Send(It.IsAny<MarkTodoAsDoneCommand>(), It.IsAny<CancellationToken>()))
+            _mediatorMock
+                .Setup(x => x.Send(It.IsAny<MarkTodoAsDoneCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);
 
             // Act

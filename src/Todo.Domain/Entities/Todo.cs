@@ -6,30 +6,26 @@ namespace Todo.Domain.Entities
 {
     public class Todo : Entity
     {
-        public string Title { get; private set; }
-        public string Description { get; private set; }
-        public TodoStatus Status { get; private set; }
-        public List<string> Tags { get; private set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public TodoStatus Status { get; set; }
+        public List<string> Tags { get; set; }
 
         public Todo()
         {
         }
 
-        public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null,
-            DateTime? createdAt = null, DateTime? modifiedAt = null)
+        public Todo(string title, string description, TodoStatus status, List<string> tags, Guid? id = null, DateTime? createdAt = null, DateTime? modifiedAt = null) 
+            : base(id, modifiedAt, createdAt)
         {
             Title = title;
             Description = description;
             Status = status;
             Tags = tags;
-            Id = id ?? Guid.NewGuid();
-            CreatedAt = createdAt ?? DateTime.Now;
-            ModifiedAt = modifiedAt ?? DateTime.Now;
         }
 
-        public void MarkAsDone()
-        {
-            Status = TodoStatus.Done;
-        }
+        public void MarkAsDone() => Status = TodoStatus.Done;
+
+        public bool IsDone() => Status == TodoStatus.Done;
     }
 }
