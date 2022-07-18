@@ -6,7 +6,7 @@ using Moq;
 using Moq.AutoMock;
 using Todo.Application.CommandHandlers;
 using Todo.Application.Commands;
-using Todo.Application.Services;
+using Todo.Infrastructure.Interfaces;
 using Xunit;
 
 namespace Todo.Application.Tests.CommandHandlers
@@ -14,20 +14,20 @@ namespace Todo.Application.Tests.CommandHandlers
     public class AddTodoCommandHandlerTests
     {
         private readonly AddTodoCommandHandler _commandHandler;
-        private readonly Mock<ITodoProvider> _todoProviderMock;
+        private readonly Mock<ITodoRepository> _todoProviderMock;
 
         public AddTodoCommandHandlerTests()
         {
             var autoMocker = new AutoMocker();
             _commandHandler = autoMocker.CreateInstance<AddTodoCommandHandler>();
-            _todoProviderMock = autoMocker.GetMock<ITodoProvider>();
+            _todoProviderMock = autoMocker.GetMock<ITodoRepository>();
         }
 
         [Fact]
         public async Task Handle_AddedWithSuccess_ReturnTrue()
         {
             // Arrange
-            _todoProviderMock.Setup(x => x.Add(It.IsAny<Domain.Entities.Todo>()));
+            _todoProviderMock.Setup(x => x.AddAsync(It.IsAny<Domain.Entities.Todo>()));
             var command = new AddTodoCommand("Xxxx", "Xxxxx xx xxxx", new List<string>());
 
             // Act

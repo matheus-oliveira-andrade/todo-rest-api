@@ -9,12 +9,14 @@ using Todo.Application.ViewModels;
 
 namespace Todo.Api.Controllers
 {
-    [Route("api/todo")]
+    [ApiController]
+    [ApiVersion(version: "1.0")]
+    [Route("/api/v{version:apiVersion}/todo")]
     public class TodoController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly ISender _mediator;
 
-        public TodoController(IMediator mediator)
+        public TodoController(ISender mediator)
         {
             _mediator = mediator;
         }
@@ -32,18 +34,13 @@ namespace Todo.Api.Controllers
         {
             var todo = await _mediator.Send(new GetTodoByIdQuery(id));
 
-            if (todo == null)
-            {
-                return NotFound();
-            }
-            
             return Ok(todo);
         }
 
         [HttpPost]
         public async Task<ActionResult> Add(string title, string description, List<string> tags)
         {
-            bool success = await _mediator.Send(new AddTodoCommand(title, description, tags));
+            var success = await _mediator.Send(new AddTodoCommand(title, description, tags));
             if (!success)
                 return BadRequest();
 
@@ -53,7 +50,7 @@ namespace Todo.Api.Controllers
         [HttpPut("done")]
         public async Task<ActionResult> MarkAsDone(Guid id)
         {
-            bool success = await _mediator.Send(new MarkTodoAsDoneCommand(id));
+            var success = await _mediator.Send(new MarkTodoAsDoneCommand(id));
             if (!success)
                 return BadRequest();
 

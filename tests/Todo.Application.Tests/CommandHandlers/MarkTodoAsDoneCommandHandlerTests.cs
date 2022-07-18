@@ -6,8 +6,8 @@ using Moq;
 using Moq.AutoMock;
 using Todo.Application.CommandHandlers;
 using Todo.Application.Commands;
-using Todo.Application.Services;
 using Todo.Application.Tests.CommandHandlers.Fixtures;
+using Todo.Infrastructure.Interfaces;
 using Xunit;
 
 namespace Todo.Application.Tests.CommandHandlers
@@ -15,7 +15,7 @@ namespace Todo.Application.Tests.CommandHandlers
     public class MarkTodoAsDoneCommandHandlerTests : IClassFixture<MarkTodoAsDoneCommandHandlerFixture>
     {
         private readonly MarkTodoAsDoneCommandHandler _commandHandler;
-        private readonly Mock<ITodoProvider> _todoProviderMock;
+        private readonly Mock<ITodoRepository> _todoProviderMock;
         private readonly MarkTodoAsDoneCommandHandlerFixture _fixture;
 
         public MarkTodoAsDoneCommandHandlerTests(MarkTodoAsDoneCommandHandlerFixture fixture)
@@ -25,7 +25,7 @@ namespace Todo.Application.Tests.CommandHandlers
             var autoMocker = new AutoMocker();
 
             _commandHandler = autoMocker.CreateInstance<MarkTodoAsDoneCommandHandler>();
-            _todoProviderMock = autoMocker.GetMock<ITodoProvider>();
+            _todoProviderMock = autoMocker.GetMock<ITodoRepository>();
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Todo.Application.Tests.CommandHandlers
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
 
-            _todoProviderMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+            _todoProviderMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(_fixture.GetPendingTodo());
 
             // Act
@@ -50,7 +50,7 @@ namespace Todo.Application.Tests.CommandHandlers
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
 
-            _todoProviderMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+            _todoProviderMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(_fixture.GetDoneTodo());
 
             // Act
@@ -66,7 +66,7 @@ namespace Todo.Application.Tests.CommandHandlers
             // Arrange
             var command = new MarkTodoAsDoneCommand(Guid.NewGuid());
 
-            _todoProviderMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+            _todoProviderMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(default(Domain.Entities.Todo));
 
             // Act

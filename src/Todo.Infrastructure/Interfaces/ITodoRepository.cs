@@ -6,11 +6,10 @@ namespace Todo.Infrastructure.Interfaces
 {
     public interface ITodoRepository
     {
-        public Task Add(Domain.Entities.Todo todo);
-        public Task Delete(Guid id);
-        Task Update(Domain.Entities.Todo todo);
+        public Task AddAsync(Domain.Entities.Todo todo);
+        Task UpdateAsync(Domain.Entities.Todo todo);
 
-        public Task<Domain.Entities.Todo> GetById(Guid id);
-        public Task<List<Domain.Entities.Todo>> GetAll();
+        public Task<Domain.Entities.Todo> GetByIdAsync(Guid id);
+        public Task<List<Domain.Entities.Todo>> GetAllAsync();
     }
 }

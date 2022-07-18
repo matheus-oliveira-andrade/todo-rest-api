@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -7,7 +6,6 @@ using Moq;
 using Moq.AutoMock;
 using Todo.Application.Queries;
 using Todo.Application.QueryHandlers;
-using Todo.Application.Tests.Mappings.Fixtures;
 using Todo.Infrastructure.Interfaces;
 using Xunit;
 
@@ -30,7 +28,7 @@ namespace Todo.Application.Tests.QueryHandlersTests
         public async Task Handle_Success_CanFindData()
         {
             // Arrange
-            _todoRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).ReturnsAsync(new TodoMapperFixture().GenerateRandomTodos(1).First());
+            _todoRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Domain.Entities.Todo());
             var query = new GetTodoByIdQuery(Guid.NewGuid());
 
             // Act
@@ -44,7 +42,7 @@ namespace Todo.Application.Tests.QueryHandlersTests
         public async Task Handle_Null_CantFindData()
         {
             // Arrange
-            _todoRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).ReturnsAsync(default(Domain.Entities.Todo));
+            _todoRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(default(Domain.Entities.Todo));
             var query = new GetTodoByIdQuery(Guid.NewGuid());
 
             // Act
