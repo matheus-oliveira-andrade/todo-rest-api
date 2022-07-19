@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Todo.Api.Configs;
 
+[ExcludeFromCodeCoverage]
 public static class SwaggerDocsConfigs
 {
     public static IServiceCollection AddSwaggerDocs(this IServiceCollection services)

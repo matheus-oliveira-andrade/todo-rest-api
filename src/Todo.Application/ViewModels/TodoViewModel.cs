@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json.Converters;
 using Todo.Domain.Enums;
 
 namespace Todo.Application.ViewModels

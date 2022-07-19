@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Todo.Api.Configs;
 
+[ExcludeFromCodeCoverage]
 public static class ApiVersioningConfigs
 {
     public static IServiceCollection AddSupportApiVersioning(this IServiceCollection services)

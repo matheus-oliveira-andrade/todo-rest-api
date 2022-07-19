@@ -6,7 +6,6 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Moq.AutoMock;
 using Todo.Api.Controllers;
 using Todo.Application.Commands;
 using Todo.Application.Queries;
@@ -17,19 +16,19 @@ namespace Todo.Api.Tests.Controllers
 {
     public class TodoControllerTests
     {
-        private readonly TodoController _controller;
         private readonly Mock<IMediator> _mediatorMock;
+        
+        private readonly TodoController _controller;
 
         public TodoControllerTests()
         {
-            var autoMocker = new AutoMocker();
-
-            _mediatorMock = autoMocker.GetMock<IMediator>();
-            _controller = autoMocker.CreateInstance<TodoController>();
+            _mediatorMock = new Mock<IMediator>();
+            
+            _controller = new TodoController(_mediatorMock.Object);
         }
 
         [Fact]
-        public async Task Get_HaveTodos_ReturnsOkResultWithTodos()
+        public async Task GetAll_ShouldReturnTodos_WhenIsCalled()
         {
             // Arrange
             _mediatorMock
@@ -37,15 +36,15 @@ namespace Todo.Api.Tests.Controllers
                 .ReturnsAsync(new List<TodoViewModel> { new() });
 
             // Act
-            var response = await _controller.Get();
+            var response = await _controller.GetAll();
 
             // Assert
             response.Result.Should().BeOfType<OkObjectResult>();
-            response.Result.As<OkObjectResult>().Value.As<List<TodoViewModel>>().Should().HaveCountGreaterThan(0);
+            response.Result.As<OkObjectResult>().Value.As<List<TodoViewModel>>().Should().HaveCount(1);
         }
 
         [Fact]
-        public async Task Get_DontHaveTodos_ReturnsOKResultWithEmptyList()
+        public async Task GetAll_ShouldReturnEmpty_WhenNotFindTodos()
         {
             // Arrange
             _mediatorMock
@@ -53,7 +52,7 @@ namespace Todo.Api.Tests.Controllers
                 .ReturnsAsync(new List<TodoViewModel>());
 
             // Act
-            var response = await _controller.Get();
+            var response = await _controller.GetAll();
 
             // Assert
             response.Result.Should().BeOfType<OkObjectResult>();
@@ -61,23 +60,26 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task GetById_IdExist_ReturnsOKResultWithTodo()
+        public async Task GetById_ShouldReturnATodo_WhenFindTodoWithId()
         {
             // Arrange
+            var todoId = Guid.NewGuid();
+            
             _mediatorMock
                 .Setup(x => x.Send(It.IsAny<GetTodoByIdQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new TodoViewModel());
+                .ReturnsAsync(new TodoViewModel { Id = todoId});
 
             // Act
-            var response = await _controller.GetById(Guid.NewGuid());
+            var response = await _controller.GetById(todoId);
 
             // Assert
             response.Result.Should().BeOfType<OkObjectResult>();
             response.Result.As<OkObjectResult>().Value.As<TodoViewModel>().Should().NotBeNull();
+            response.Result.As<OkObjectResult>().Value.As<TodoViewModel>().Id.Should().Be(todoId);
         }
 
         [Fact]
-        public async Task GetById_IdDoesNotExist_ReturnsNotFound()
+        public async Task GetById_ShouldReturnNull_WhenNotFindTodoId()
         {
             // Arrange
             _mediatorMock
@@ -93,7 +95,7 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task Add_ValidTodo_ReturnsOk()
+        public async Task Add_ShouldReturnOK_WhenTodoParametersIsValid()
         {
             // Arrange
             _mediatorMock
@@ -108,7 +110,7 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task Add_NotSuccess_ReturnsBadRequest()
+        public async Task Add_ShouldReturnBadRequest_WhenTodoParametersIsInvalid()
         {
             // Arrange
             _mediatorMock
@@ -123,7 +125,7 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task MarkAsDone_Success_ReturnsOk()
+        public async Task MarkAsDone_ShouldReturnOk_WhenIsValidTodoId()
         {
             // Arrange
             _mediatorMock
@@ -138,7 +140,7 @@ namespace Todo.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task MarkAsDone_NotSuccess_ReturnsBadRequest()
+        public async Task MarkAsDone_ShouldReturnBadRequest_WhenIsInvalidTodoId()
         {
             // Arrange
             _mediatorMock
