@@ -22,7 +22,7 @@ namespace Todo.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TodoViewModel>>> Get()
+        public async Task<ActionResult<List<TodoViewModel>>> GetAll()
         {
             var todos = await _mediator.Send(new GetAllTodosQuery());
 
@@ -34,6 +34,9 @@ namespace Todo.Api.Controllers
         {
             var todo = await _mediator.Send(new GetTodoByIdQuery(id));
 
+            if (todo is null)
+                return NotFound();
+            
             return Ok(todo);
         }
 

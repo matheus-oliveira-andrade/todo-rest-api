@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api.Tests", "tests\Tod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Application.Tests", "tests\Todo.Application.Tests\Todo.Application.Tests.csproj", "{72BF5464-8322-47B9-9E7B-ECB566504063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Domain.Tests", "tests\Todo.Domain.Tests\Todo.Domain.Tests.csproj", "{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72BF5464-8322-47B9-9E7B-ECB566504063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +69,6 @@ Global
 		{C9D21832-91AE-45E8-B057-288319605357} = {098204E4-6A72-4744-ADB6-1B23ED1FCFBA}
 		{873F4FA5-CF73-473F-877B-18F2A0576681} = {D16B0751-BE34-4D86-BAB6-AD94084AE5FC}
 		{72BF5464-8322-47B9-9E7B-ECB566504063} = {D16B0751-BE34-4D86-BAB6-AD94084AE5FC}
+		{35FE32FC-3A85-4A6B-B90F-A4B1DAD4AD14} = {D16B0751-BE34-4D86-BAB6-AD94084AE5FC}
 	EndGlobalSection
 EndGlobal
