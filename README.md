@@ -1,6 +1,6 @@
 # Todo rest api
 
-A REST API using principles of clean architecture, unit tests and aws dynamoDb
+A REST API using principles of clean architecture, unit tests, aws dynamoDb and other best pratics
 
 
 ## Run
