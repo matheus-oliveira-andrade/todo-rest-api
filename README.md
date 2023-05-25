@@ -1,8 +1,6 @@
-# Todo rest api
+### Todo REST API using clean architecture principles
 
-A REST API using clean architecture, unit tests, aws dynamoDb and other best pratics
-
-## Run in cli
+#### Run in cli
 
     dotnet test
 
@@ -11,7 +9,7 @@ A REST API using clean architecture, unit tests, aws dynamoDb and other best pra
     dotnet run --project src/Todo.Api
 
 
-## Run with Docker
+#### Run with Docker
 
     docker build -t todoapp:latest .
 
